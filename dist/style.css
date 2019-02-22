@@ -1,5 +1,27 @@
-body {
-  color: blue; }
-  body h1 {
-    color: blue;
-    font-weight: bold; }
+.main-wrapper {
+  max-width: 860px;
+  min-width: 700px; }
+
+.rotate-icon {
+  transform: rotate(90deg); }
+
+.converter-form {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 10px;
+  padding-bottom: 5px;
+  align-items: flex-end; }
+  .converter-form .input-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 47%; }
+    .converter-form .input-wrapper label {
+      padding-left: 10px;
+      margin: 0; }
+  .converter-form .button-change-place {
+    max-width: 5%;
+    max-height: 34px; }
+    .converter-form .button-change-place span {
+      color: white; }
+  .converter-form .conv-form-input {
+    width: 47%; }

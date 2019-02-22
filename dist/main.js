@@ -1,4 +1,5 @@
-console.log('12')
+/* eslint-disable no-console */
+console.log('test');
 /* globals angular */
 const currencyApp = angular.module('currencyApp', ['ui.bootstrap']);
 

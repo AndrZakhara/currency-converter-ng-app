@@ -1,7 +1,21 @@
-body {
-  color: blue;
-  h1 {
-    color: blue;
-    font-weight: bold;
+.main-wrapper {
+  // background-color: rgb(109, 109, 109);
+  max-width: 860px;
+}
+.rotate-icon {
+  transform: rotate(90deg);
+}
+.converter-form {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 0; 
+  .form-select {
+    width: 47%;
+  }
+  .button-change-place {
+    max-width: 5%;
+    span {
+      color: white;
+    }
   }
 }

@@ -13,20 +13,50 @@
 </head>
 <body ng-app="currencyApp" ng-controller="currencyCtrl">
   <div class="page-header">
-    <h1>Currency App....</h1>
+    <h1 class="text-center">Currency converter</h1>
   </div>
-  <div>
-    <form class="form-horizontal" role="form">
-      <div class="form-group">
-        <div class="col-md-4">
-          <input type="text" ng-model="inputValue"  class="form-control pb-10" value="{{inputValue}}"/>
-          <span>{{ inputValue }}!</span>
-        </div>
-        <button type="button" class="btn btn-primary">
-          Button
-        </button>
+  <div class="main-wrapper container">
+    <div class="row">
+      <ul class="nav nav-tabs">
+        <li class="col-md-6 col-sm-6 col-xs-6 converter-tub text-center"><a href="#">Buy currency</a></li>
+        <li class="col-md-6 col-sm-6 col-xs-6 converter-tub text-center"><a href="#">Sell currency</a></li>
+      </ul>
+    </div>
+    <div class = "row">
+      <div class="form-wrapper">
+        <form class="form-group" role="form">
+          <div class="converter-form">
+            <div class="input-wrapper">
+              <label for="select-left">Currency I Have:</label>
+              <select class="form-control form-select" id="select-left">
+                <option value="EUR">EUR</option>
+                <option value="RUB">RUB</option>
+                <option value="USD">USD</option>
+                <option value="UAH">UAH</option>
+                <option value="GBP">GBP</option>
+              </select>
+            </div>          
+            <button class="btn button-change-place">
+              <span class="rotate-icon glyphicon glyphicon-sort"></span>
+            </button>
+            <div class="input-wrapper">
+              <label for="select-right">Currency I Want:</label>
+              <select class="form-control form-select" id="select-right">
+                <option value="EUR">EUR</option>
+                <option value="RUB">RUB</option>
+                <option value="USD">USD</option>
+                <option value="UAH">UAH</option>
+                <option value="GBP">GBP</option>
+              </select>
+            </div>
+          </div>          
+          <div class="form-inline converter-form" role="form">        
+            <input type="text" class="form-control conv-form-input" value={{inputValue}} />
+            <input type="text" class="form-control conv-form-input"/>
+          </div>
+        </form>
       </div>
-    </form>
+    </div>
   </div>
 </body>
 </html>
