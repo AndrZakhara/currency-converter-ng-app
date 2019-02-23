@@ -5,6 +5,9 @@
 .rotate-icon {
   transform: rotate(90deg); }
 
+.exchange-rates-wrapper {
+  height: 20px; }
+
 .converter-form {
   display: flex;
   justify-content: space-between;
