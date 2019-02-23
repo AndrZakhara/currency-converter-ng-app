@@ -14,7 +14,9 @@ const paths = {
   allSass: './src/scss/**/*.scss',
   allJs: './src/js/**/*.js',
   jsIndex: './src/js/index.js',
+  jsService: './src/js/services.js',
   jsController: './src/js/controllers.js',
+  jsFilter: './src/js/filters.js',
   jsMain: './dist/main.js'
 };
 
@@ -36,7 +38,13 @@ gulp.task('sass', function() {
 });
 
 gulp.task('js', function() {
-  return gulp.src([paths.jsIndex, paths.jsController])
+  return gulp.src(
+    [
+      paths.jsIndex,
+      paths.jsService,
+      paths.jsFilter,
+      paths.jsController
+    ])
     .pipe(concat('main.js'))
     .pipe(gulp.dest(paths.dirs.dist))
     .pipe(browserSync.reload({
