@@ -40,7 +40,7 @@
                 <option ng-repeat="currency in allCurrencies" value="{{currency.id}}">{{currency.id}}</option>
               </select>
             </div>          
-            <span class="btn btn-icon glyphicon glyphicon-sort"></span>
+            <span class="btn btn-icon glyphicon glyphicon-sort" ng-click="swapCurrencies()"></span>
             <div class="input-wrapper">
               <label for="select-right">Currency I Want:</label>
               <select 
@@ -65,9 +65,9 @@
           <div class="comission-wrapper">
             <select 
               class="form-control btn btn-link select-comission"
-              ng-model="selectedcommission"
+              ng-model="selectedCommission"
               ng-options="option.name for option in commissionOptions"
-              ng-change="changeCommission(selectedcommission.value)"
+              ng-change="changeCommission(selectedCommission.value)"
             >
             </select>
           </div>

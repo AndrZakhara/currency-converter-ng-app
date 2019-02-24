@@ -4,29 +4,26 @@
   function currencyController($scope, currencyService) {
     const vm = this;
 
-    function fetchData() {
-      currencyService.getAllCurrencies().then(res => {
-        $scope.allCurrencies = res.data.results;
-        console.log(res.data.results);
-      });
-    }
-
-    function fetchCurrenciesExchange() {
-      if ($scope.haveCurrency && $scope.wantCurrency) {
-        return currencyService.getCurrenciesExchange($scope.haveCurrency, $scope.wantCurrency);
-      }
-    }
-
     function renderExchangeRate() {
       return `Exchange rate: 1${$scope.haveCurrency} = ${$scope.currentCourse.toFixed(2)}${$scope.wantCurrency}`;
     }
 
-    function setCurrenciesPair() {
-      $scope.courseData.then(res => {
-        const [currenciesPair] = Object.keys(res.data);
-        console.log(currenciesPair);
-        $scope.currentCourse = res.data[currenciesPair].val;
-        $scope.exchangeRates = renderExchangeRate();
+    function fetchCurrenciesExchange() {
+      if ($scope.haveCurrency && $scope.wantCurrency) {
+        currencyService.getCurrenciesExchange($scope.haveCurrency, $scope.wantCurrency)
+          .then(res => {
+            const [currenciesPair] = Object.keys(res.data);
+            $scope.currentCourse = res.data[currenciesPair].val;
+            $scope.exchangeRates = renderExchangeRate();
+          });
+      }
+    }
+
+    function fetchData() {
+      currencyService.getAllCurrencies().then(res => {
+        $scope.allCurrencies = res.data.results;
+        console.log(res.data.results);
+        fetchCurrenciesExchange();
       });
     }
 
@@ -55,23 +52,31 @@
       }
     ];
 
-    $scope.selectedcommission = $scope.commissionOptions[0];
+    $scope.selectedCommission = $scope.commissionOptions[0];
+    $scope.haveCurrency = 'USD';
+    $scope.wantCurrency = 'UAH';
 
-    $scope.changeHaveCyrrency = function(item) {
-      $scope.haveCurrency = item;
+    $scope.swapCurrencies = () => {
+      const { haveCurrency, wantCurrency } = $scope;
 
+      $scope.haveAmount = null;
+      $scope.wantAmount = null;
+      $scope.haveCurrency = wantCurrency;
+      $scope.wantCurrency = haveCurrency;
+      $scope.selectedCommission = $scope.commissionOptions[0];
+
+      fetchCurrenciesExchange();
+    };
+
+    $scope.changeHaveCyrrency = function() {
       if ($scope.haveCurrency && $scope.wantCurrency) {
-        $scope.courseData = fetchCurrenciesExchange();
-        setCurrenciesPair();
+        fetchCurrenciesExchange();
       }
     };
 
-    $scope.changeWantCyrrency = function(item) {
-      $scope.wantCurrency = item;
-
+    $scope.changeWantCyrrency = function() {
       if ($scope.haveCurrency && $scope.wantCurrency) {
-        $scope.courseData = fetchCurrenciesExchange();
-        setCurrenciesPair();
+        fetchCurrenciesExchange();
       }
     };
 
@@ -79,7 +84,7 @@
       const {
         haveAmount,
         currentCourse,
-        selectedcommission,
+        selectedCommission,
         haveCurrency,
         wantCurrency
       } = $scope;
@@ -89,7 +94,7 @@
         && haveCurrency
         && wantCurrency
       ) {
-        $scope.wantAmount = (haveAmount * currentCourse * (1 + selectedcommission.value / 100)).toFixed(2);
+        $scope.wantAmount = (haveAmount * currentCourse * (1 + selectedCommission.value / 100)).toFixed(2);
       } else {
         $scope.wantAmount = null;
       }
@@ -99,8 +104,7 @@
       $scope.haveAmountChange();
     };
 
-    // window.onload = fetchData;
-    // $scope.click = fetchData;
+    window.onload = fetchData;
   }
 
   angular
