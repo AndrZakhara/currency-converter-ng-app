@@ -11,17 +11,21 @@
   <script src="main.js"></script>
   <title>Document</title>
 </head>
-<body ng-controller="currencyController" class="container-fluid">
+<body ng-controller="CurrencyController" class="container-fluid">
   <div class="page-header">
     <h1 class="text-center header">Currency converter</h1>
   </div>
   <div class="main-wrapper container">
-    <!-- <div class="row">
+    <div class="row" ng-controller="TabController">
       <ul class="nav nav-tabs">
-        <li class="col-md-6 col-sm-6 col-xs-6 converter-tub text-center"><a href="#">Buy currency</a></li>
-        <li class="col-md-6 col-sm-6 col-xs-6 converter-tub text-center"><a href="#">Sell currency</a></li>
+        <li class="col-md-3 col-sm-4 col-xs-6 converter-tub text-center active" ng-class="{ active: isSet(1) }">
+          <a href="javascript:void(0)" ng-click="handleTabClick(1)">Sell currency</a>
+        </li>
+        <li class="col-md-3 col-sm-4 col-xs-6 converter-tub text-center" ng-class="{ active: isSet(2) }">
+          <a href="javascript:void(0)" ng-click="handleTabClick(2)">Buy currency</a>
+        </li>
       </ul>
-    </div> -->
+    </div>
     <div class = "row">
       <div class="exchange-rates-wrapper">
         <h4 class="text-center">{{exchangeRates}}</h4>
@@ -30,7 +34,7 @@
         <form class="form-group" role="form">
           <div class="converter-form">
             <div class="input-wrapper">
-              <label for="select-left">Currency I Have:</label>
+              <label for="select-left">{{selectLeft}}</label>
               <select 
                 class="form-control form-select" 
                 id="select-left" 
@@ -42,7 +46,7 @@
             </div>          
             <span class="btn btn-icon glyphicon glyphicon-sort" ng-click="swapCurrencies()"></span>
             <div class="input-wrapper">
-              <label for="select-right">Currency I Want:</label>
+              <label for="select-right">{{selectRight}}</label>
               <select 
                 class="form-control form-select" 
                 id="select-right" 
