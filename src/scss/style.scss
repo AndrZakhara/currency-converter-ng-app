@@ -1,19 +1,25 @@
 .main-wrapper {
   max-width: 860px;
 }
+
 .header {
-  color: darkolivegreen;
+  color: rgb(199, 199, 199);
 }
+
 .btn-icon {
   transform: rotate(90deg);
   color: darkolivegreen;
 }
+
 .btn-icon:hover {
   color: darkgreen;
 }
+
 .exchange-rates-wrapper{
   height: 20px;
+  color: rgb(99, 99, 99)
 }
+
 .converter-form {
   display: flex;
   justify-content: space-between;
@@ -29,6 +35,7 @@
       margin: 0;
     }
   }
+
   .button-change-place {
     max-width: 5%;
     max-height: 34px;
@@ -36,16 +43,17 @@
       color: white;
     }
   }
+
   .conv-form-input{
     width: 47%;
   }
-
 }
+
 .comission-wrapper{
   width: 170px;
 }
+
 .select-comission {
-  // max-width: 180px;
   outline: none;
 }
 

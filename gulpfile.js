@@ -14,8 +14,8 @@ const paths = {
   allJs: './src/js/**/*.js',
   jsIndex: './src/js/index.js',
   jsService: './src/js/services.js',
-  jsController: './src/js/controllers.js',
-  jsFilter: './src/js/filters.js',
+  jsCurrencyController: './src/js/controllers/CurrencyController.js',
+  jsTabsController: './src/js/controllers/TabController.js',
   jsMain: './dist/main.js'
 };
 
@@ -41,8 +41,8 @@ gulp.task('js', function() {
     [
       paths.jsIndex,
       paths.jsService,
-      paths.jsFilter,
-      paths.jsController
+      paths.jsCurrencyController,
+      paths.jsTabsController
     ])
     .pipe(concat('main.js'))
     .pipe(gulp.dest(paths.dirs.build))

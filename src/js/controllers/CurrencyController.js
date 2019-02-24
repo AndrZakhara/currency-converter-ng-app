@@ -55,6 +55,18 @@
     $scope.selectedCommission = $scope.commissionOptions[0];
     $scope.haveCurrency = 'USD';
     $scope.wantCurrency = 'UAH';
+    $scope.selectLeft = 'Currency I Have:';
+    $scope.selectRight = 'Currency I Want:';
+
+    $scope.setLabel = val => {
+      if (val === 1) {
+        $scope.selectLeft = 'Currency I Have:';
+        $scope.selectRight = 'Currency I Want:';
+      } else {
+        $scope.selectLeft = 'Currency I Want:';
+        $scope.selectRight = 'Currency I Need:';
+      }
+    };
 
     $scope.swapCurrencies = () => {
       const { haveCurrency, wantCurrency } = $scope;
@@ -110,5 +122,5 @@
 
   angular
     .module('currencyApp')
-    .controller('currencyController', currencyController);
+    .controller('CurrencyController', currencyController);
 })());

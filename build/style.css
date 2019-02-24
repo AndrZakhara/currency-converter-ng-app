@@ -2,7 +2,7 @@
   max-width: 860px; }
 
 .header {
-  color: darkolivegreen; }
+  color: #c7c7c7; }
 
 .btn-icon {
   transform: rotate(90deg);
@@ -12,7 +12,8 @@
   color: darkgreen; }
 
 .exchange-rates-wrapper {
-  height: 20px; }
+  height: 20px;
+  color: #636363; }
 
 .converter-form {
   display: flex;
