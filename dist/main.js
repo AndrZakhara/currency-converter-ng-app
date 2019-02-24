@@ -88,7 +88,7 @@
       $scope.wantAmount = (item * $scope.currentCourse).toFixed(2);
     };
 
-    // window.onload = fetchData;
+    window.onload = fetchData;
     // $scope.click = fetchData;
   }
 

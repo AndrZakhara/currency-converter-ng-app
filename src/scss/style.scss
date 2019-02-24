@@ -39,4 +39,17 @@
   .conv-form-input{
     width: 47%;
   }
+
+}
+.comission-wrapper{
+  width: 170px;
+}
+.select-comission {
+  max-width: 100px;
+  outline: none;
+}
+
+.btn:focus,.btn:active {
+  outline: none !important;
+  box-shadow: none;
 }
