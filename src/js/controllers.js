@@ -15,6 +15,7 @@
             const [currenciesPair] = Object.keys(res.data);
             $scope.currentCourse = res.data[currenciesPair].val;
             $scope.exchangeRates = renderExchangeRate();
+            $scope.haveAmountChange();
           });
       }
     }
@@ -58,8 +59,8 @@
     $scope.swapCurrencies = () => {
       const { haveCurrency, wantCurrency } = $scope;
 
-      $scope.haveAmount = null;
-      $scope.wantAmount = null;
+      $scope.haveAmount = 0;
+      $scope.wantAmount = 0;
       $scope.haveCurrency = wantCurrency;
       $scope.wantCurrency = haveCurrency;
       $scope.selectedCommission = $scope.commissionOptions[0];
@@ -92,10 +93,11 @@
         haveAmount
         && haveCurrency
         && wantCurrency
+        && currentCourse
       ) {
-        $scope.wantAmount = (haveAmount * currentCourse * (1 + selectedCommission.value / 100)).toFixed(2);
+        $scope.wantAmount = Number((haveAmount * currentCourse * (1 + selectedCommission.value / 100)).toFixed(2));
       } else {
-        $scope.wantAmount = null;
+        $scope.wantAmount = 0;
       }
     };
 

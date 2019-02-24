@@ -55,12 +55,17 @@
           </div>          
           <div class="form-inline converter-form" role="form">
             <input 
-              type="text" 
+              type="number" 
               class="form-control conv-form-input" 
               ng-model="haveAmount" 
-              ng-change="haveAmountChange(haveAmount)"
+              ng-change="haveAmountChange()"
             />
-            <input type="text" class="form-control conv-form-input" ng-model="wantAmount"/>
+            <input 
+              type="number" 
+              class="form-control conv-form-input" 
+              ng-model="wantAmount" 
+              disabled
+            />
           </div>
           <div class="comission-wrapper">
             <select 
