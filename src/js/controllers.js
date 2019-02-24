@@ -3,7 +3,6 @@
 ((function() {
   function currencyController($scope, currencyService) {
     const vm = this;
-    vm.currencyService = currencyService;
 
     function fetchData() {
       currencyService.getAllCurrencies().then(res => {
@@ -31,6 +30,33 @@
       });
     }
 
+    $scope.currencyService = currencyService;
+
+    $scope.commissionOptions = [
+      {
+        name: 'Commission - 0%',
+        value: 0
+      },
+      {
+        name: 'Commission - 1%',
+        value: 1
+      },
+      {
+        name: 'Commission - 1.5%',
+        value: 1.5
+      },
+      {
+        name: 'Commission - 2.5%',
+        value: 2.5
+      },
+      {
+        name: 'Commission - 4%',
+        value: 4
+      }
+    ];
+
+    $scope.selectedcommission = $scope.commissionOptions[0];
+
     $scope.changeHaveCyrrency = function(item) {
       $scope.haveCurrency = item;
 
@@ -49,11 +75,31 @@
       }
     };
 
-    $scope.haveAmountChange = item => {
-      $scope.wantAmount = (item * $scope.currentCourse).toFixed(2);
+    $scope.haveAmountChange = () => {
+      const {
+        haveAmount,
+        currentCourse,
+        selectedcommission,
+        haveCurrency,
+        wantCurrency
+      } = $scope;
+
+      if (
+        haveAmount
+        && haveCurrency
+        && wantCurrency
+      ) {
+        $scope.wantAmount = (haveAmount * currentCourse * (1 + selectedcommission.value / 100)).toFixed(2);
+      } else {
+        $scope.wantAmount = null;
+      }
     };
 
-    window.onload = fetchData;
+    $scope.changeCommission = val => {
+      $scope.haveAmountChange();
+    };
+
+    // window.onload = fetchData;
     // $scope.click = fetchData;
   }
 
