@@ -139,7 +139,7 @@
       $scope.haveAmountChange();
     };
 
-    window.onload = fetchData;
+    // window.onload = fetchData;
   }
 
   angular

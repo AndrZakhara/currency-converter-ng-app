@@ -22,7 +22,6 @@
     function fetchData() {
       currencyService.getAllCurrencies().then(res => {
         $scope.allCurrencies = res.data.results;
-        console.log(res.data.results);
         fetchCurrenciesExchange();
       });
     }
