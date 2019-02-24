@@ -6,7 +6,6 @@ const concat = require('gulp-concat');
 const paths = {
   dirs: {
     build: './build',
-    dist: './dist',
     src: './src'
   },
   html: './src/*.html',
@@ -21,8 +20,8 @@ const paths = {
 };
 
 gulp.task('html', function() {
-  gulp.src(paths.html)
-    .pipe(gulp.dest(paths.dirs.dist))
+  return gulp.src(paths.html)
+    .pipe(gulp.dest(paths.dirs.build))
     .pipe(browserSync.reload({
       stream: true
     }));
@@ -31,7 +30,7 @@ gulp.task('html', function() {
 gulp.task('sass', function() {
   return gulp.src(paths.sass)
     .pipe(sass())
-    .pipe(gulp.dest(paths.dirs.dist))
+    .pipe(gulp.dest(paths.dirs.build))
     .pipe(browserSync.reload({
       stream: true
     }));
@@ -46,7 +45,7 @@ gulp.task('js', function() {
       paths.jsController
     ])
     .pipe(concat('main.js'))
-    .pipe(gulp.dest(paths.dirs.dist))
+    .pipe(gulp.dest(paths.dirs.build))
     .pipe(browserSync.reload({
       stream: true
     }));
@@ -61,7 +60,7 @@ gulp.task('watch', function() {
 gulp.task('serve', function(done) {
   browserSync({
     server: {
-      baseDir: paths.dirs.dist
+      baseDir: paths.dirs.build
     },
     port: 8080,
     notify: false,
@@ -71,3 +70,5 @@ gulp.task('serve', function(done) {
 });
 
 gulp.task('default', gulp.parallel('serve', 'watch'));
+
+gulp.task('build', gulp.parallel('html', 'sass', 'js'));
