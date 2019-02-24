@@ -2,8 +2,15 @@
   max-width: 860px;
   min-width: 700px; }
 
-.rotate-icon {
-  transform: rotate(90deg); }
+.header {
+  color: darkolivegreen; }
+
+.btn-icon {
+  transform: rotate(90deg);
+  color: darkolivegreen; }
+
+.btn-icon:hover {
+  color: darkgreen; }
 
 .exchange-rates-wrapper {
   height: 20px; }

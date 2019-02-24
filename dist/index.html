@@ -11,9 +11,9 @@
   <script src="main.js"></script>
   <title>Document</title>
 </head>
-<body ng-controller="currencyController">
+<body ng-controller="currencyController" class="container-fluid">
   <div class="page-header">
-    <h1 class="text-center">Currency converter</h1>
+    <h1 class="text-center header">Currency converter</h1>
   </div>
   <div class="main-wrapper container">
     <!-- <div class="row">
@@ -35,9 +35,7 @@
                 <option ng-repeat="currency in allCurrencies" value="{{currency.id}}">{{currency.id}}</option>
               </select>
             </div>          
-            <button class="btn button-change-place">
-              <span class="rotate-icon glyphicon glyphicon-sort"></span>
-            </button>
+            <span class="btn btn-icon glyphicon glyphicon-sort"></span>
             <div class="input-wrapper">
               <label for="select-right">Currency I Want:</label>
               <select class="form-control form-select" id="select-right" ng-model="wantCurrency" ng-change="changeWantCyrrency(wantCurrency)">

@@ -18,7 +18,8 @@
     }
 
     function getCurrenciesExchange(firstCurrency, secondCurrency) {
-      const URL = `${CURRENCY_CONVERT_API_URL}?apiKey=${CURRENCY_API_KEY}&q=${firstCurrency}_${secondCurrency}&compact=y`;
+      const mainURL = `${CURRENCY_CONVERT_API_URL}?apiKey=${CURRENCY_API_KEY}`;
+      const URL = `${mainURL}&q=${firstCurrency}_${secondCurrency}&compact=y`;
 
       return $http.get(URL);
     }
@@ -87,7 +88,7 @@
       $scope.wantAmount = (item * $scope.currentCourse).toFixed(2);
     };
 
-    window.onload = fetchData;
+    // window.onload = fetchData;
     // $scope.click = fetchData;
   }
 
