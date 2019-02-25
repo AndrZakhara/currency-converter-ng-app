@@ -16,13 +16,13 @@
     <h1 class="text-center header">Currency converter</h1>
   </div>
   <div class="main-wrapper container">
-    <div class="row" ng-controller="TabController">
+    <div class="row" ng-controller="TabController as tabController">
       <ul class="nav nav-tabs">
-        <li class="col-md-3 col-sm-4 col-xs-6 converter-tub text-center active" ng-class="{ active: isSet(1) }">
-          <a href="javascript:void(0)" ng-click="handleTabClick(1)">Sell currency</a>
+        <li class="col-md-3 col-sm-4 col-xs-6 converter-tub text-center active" ng-class="{ active: tabController.isSet(1) }">
+          <a href="javascript:void(0)" ng-click="tabController.handleTabClick(1)">Sell currency</a>
         </li>
-        <li class="col-md-3 col-sm-4 col-xs-6 converter-tub text-center" ng-class="{ active: isSet(2) }">
-          <a href="javascript:void(0)" ng-click="handleTabClick(2)">Buy currency</a>
+        <li class="col-md-3 col-sm-4 col-xs-6 converter-tub text-center" ng-class="{ active: tabController.isSet(2) }">
+          <a href="javascript:void(0)" ng-click="tabController.handleTabClick(2)">Buy currency</a>
         </li>
       </ul>
     </div>
