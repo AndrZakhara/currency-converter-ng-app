@@ -107,7 +107,7 @@
         && wantCurrency
         && currentCourse
       ) {
-        vm.wantAmount = Number((haveAmount * currentCourse * (1 + selectedCommission.value / 100)).toFixed(2));
+        vm.wantAmount = Number((haveAmount * currentCourse * (1 - selectedCommission.value / 100)).toFixed(2));
       } else {
         vm.wantAmount = 0;
       }
