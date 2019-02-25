@@ -163,16 +163,17 @@
 angular
   .module('currencyApp')
   .controller('TabController', ['$scope', function($scope) {
-    $scope.tab = 1;
+    const vm = this;
+    vm.tab = 1;
 
-    $scope.isSet = tabNum => $scope.tab === tabNum;
+    vm.isSet = tabNum => vm.tab === tabNum;
 
-    $scope.setTab = newTab => {
-      $scope.tab = newTab;
+    vm.setTab = newTab => {
+      vm.tab = newTab;
     };
 
-    $scope.handleTabClick = val => {
-      $scope.setTab(val);
+    vm.handleTabClick = val => {
+      vm.setTab(val);
       $scope.setLabel(val);
     };
   }]);
