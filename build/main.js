@@ -39,31 +39,31 @@
     const vm = this;
 
     function renderExchangeRate() {
-      return `Exchange rate: 1${$scope.haveCurrency} = ${$scope.currentCourse.toFixed(2)}${$scope.wantCurrency}`;
+      return `Exchange rate: 1${vm.haveCurrency} = ${vm.currentCourse.toFixed(2)}${vm.wantCurrency}`;
     }
 
     function fetchCurrenciesExchange() {
-      if ($scope.haveCurrency && $scope.wantCurrency) {
-        currencyService.getCurrenciesExchange($scope.haveCurrency, $scope.wantCurrency)
+      if (vm.haveCurrency && vm.wantCurrency) {
+        currencyService.getCurrenciesExchange(vm.haveCurrency, vm.wantCurrency)
           .then(res => {
             const [currenciesPair] = Object.keys(res.data);
-            $scope.currentCourse = res.data[currenciesPair].val;
-            $scope.exchangeRates = renderExchangeRate();
-            $scope.haveAmountChange();
+            vm.currentCourse = res.data[currenciesPair].val;
+            vm.exchangeRates = renderExchangeRate();
+            vm.haveAmountChange();
           });
       }
     }
 
     function fetchData() {
       currencyService.getAllCurrencies().then(res => {
-        $scope.allCurrencies = res.data.results;
+        vm.allCurrencies = res.data.results;
         fetchCurrenciesExchange();
       });
     }
 
-    $scope.currencyService = currencyService;
+    vm.currencyService = currencyService;
 
-    $scope.commissionOptions = [
+    vm.commissionOptions = [
       {
         name: 'Commission - 0%',
         value: 0
@@ -86,54 +86,54 @@
       }
     ];
 
-    $scope.selectedCommission = $scope.commissionOptions[0];
-    $scope.haveCurrency = 'USD';
-    $scope.wantCurrency = 'UAH';
-    $scope.selectLeft = 'Currency I Have:';
-    $scope.selectRight = 'Currency I Want:';
+    vm.selectedCommission = vm.commissionOptions[0];
+    vm.haveCurrency = 'USD';
+    vm.wantCurrency = 'UAH';
+    vm.selectLeft = 'Currency I Have:';
+    vm.selectRight = 'Currency I Want:';
 
     $scope.setLabel = val => {
       if (val === 1) {
-        $scope.selectLeft = 'Currency I Have:';
-        $scope.selectRight = 'Currency I Want:';
+        vm.selectLeft = 'Currency I Have:';
+        vm.selectRight = 'Currency I Want:';
       } else {
-        $scope.selectLeft = 'Currency I Want:';
-        $scope.selectRight = 'Currency I Need:';
+        vm.selectLeft = 'Currency I Want:';
+        vm.selectRight = 'Currency I Need:';
       }
     };
 
-    $scope.swapCurrencies = () => {
-      const { haveCurrency, wantCurrency } = $scope;
+    vm.swapCurrencies = () => {
+      const { haveCurrency, wantCurrency } = vm;
 
-      $scope.haveAmount = 0;
-      $scope.wantAmount = 0;
-      $scope.haveCurrency = wantCurrency;
-      $scope.wantCurrency = haveCurrency;
-      $scope.selectedCommission = $scope.commissionOptions[0];
+      vm.haveAmount = 0;
+      vm.wantAmount = 0;
+      vm.haveCurrency = wantCurrency;
+      vm.wantCurrency = haveCurrency;
+      vm.selectedCommission = vm.commissionOptions[0];
 
       fetchCurrenciesExchange();
     };
 
-    $scope.changeHaveCyrrency = function() {
-      if ($scope.haveCurrency && $scope.wantCurrency) {
+    vm.changeHaveCyrrency = function() {
+      if (vm.haveCurrency && vm.wantCurrency) {
         fetchCurrenciesExchange();
       }
     };
 
-    $scope.changeWantCyrrency = function() {
-      if ($scope.haveCurrency && $scope.wantCurrency) {
+    vm.changeWantCyrrency = function() {
+      if (vm.haveCurrency && vm.wantCurrency) {
         fetchCurrenciesExchange();
       }
     };
 
-    $scope.haveAmountChange = () => {
+    vm.haveAmountChange = () => {
       const {
         haveAmount,
         currentCourse,
         selectedCommission,
         haveCurrency,
         wantCurrency
-      } = $scope;
+      } = vm;
 
       if (
         haveAmount
@@ -141,14 +141,14 @@
         && wantCurrency
         && currentCourse
       ) {
-        $scope.wantAmount = Number((haveAmount * currentCourse * (1 + selectedCommission.value / 100)).toFixed(2));
+        vm.wantAmount = Number((haveAmount * currentCourse * (1 + selectedCommission.value / 100)).toFixed(2));
       } else {
-        $scope.wantAmount = 0;
+        vm.wantAmount = 0;
       }
     };
 
-    $scope.changeCommission = val => {
-      $scope.haveAmountChange();
+    vm.changeCommission = val => {
+      vm.haveAmountChange();
     };
 
     window.onload = fetchData;
