@@ -11,4 +11,4 @@ create build: ``` npm build```
 
 API description: https://www.currencyconverterapi.com/docs
 
-You can see result here: https://andrzakhara.github.io/currency-converter-ng-app/build/
+You can see result here: https://andrzakhara.github.io/currency-converter-ng-app/build/index.html
