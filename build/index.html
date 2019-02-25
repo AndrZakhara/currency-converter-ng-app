@@ -11,7 +11,7 @@
   <script src="main.js"></script>
   <title>Document</title>
 </head>
-<body ng-controller="CurrencyController" class="container-fluid">
+<body ng-controller="CurrencyController as currencyController" class="container-fluid">
   <div class="page-header">
     <h1 class="text-center header">Currency converter</h1>
   </div>
@@ -28,32 +28,32 @@
     </div>
     <div class = "row">
       <div class="exchange-rates-wrapper">
-        <h4 class="text-center">{{exchangeRates}}</h4>
+        <h4 class="text-center">{{currencyController.exchangeRates}}</h4>
       </div>
       <div class="form-wrapper">
         <form class="form-group" role="form">
           <div class="converter-form">
             <div class="input-wrapper">
-              <label for="select-left">{{selectLeft}}</label>
+              <label for="select-left">{{currencyController.selectLeft}}</label>
               <select 
                 class="form-control form-select" 
                 id="select-left" 
-                ng-model="haveCurrency" 
-                ng-change="changeHaveCyrrency(haveCurrency)"
+                ng-model="currencyController.haveCurrency" 
+                ng-change="currencyController.changeHaveCyrrency()"
               >
-                <option ng-repeat="currency in allCurrencies" value="{{currency.id}}">{{currency.id}}</option>
+                <option ng-repeat="currency in currencyController.allCurrencies" value="{{currency.id}}">{{currency.id}}</option>
               </select>
             </div>          
-            <span class="btn btn-icon glyphicon glyphicon-sort" ng-click="swapCurrencies()"></span>
+            <span class="btn btn-icon glyphicon glyphicon-sort" ng-click="currencyController.swapCurrencies()"></span>
             <div class="input-wrapper">
-              <label for="select-right">{{selectRight}}</label>
+              <label for="select-right">{{currencyController.selectRight}}</label>
               <select 
                 class="form-control form-select" 
                 id="select-right" 
-                ng-model="wantCurrency" 
-                ng-change="changeWantCyrrency(wantCurrency)"
+                ng-model="currencyController.wantCurrency" 
+                ng-change="currencyController.changeWantCyrrency()"
               >
-                <option ng-repeat="currency in allCurrencies" value="{{currency.id}}">{{currency.id}}</option>
+                <option ng-repeat="currency in currencyController.allCurrencies" value="{{currency.id}}">{{currency.id}}</option>
               </select>
             </div>
           </div>          
@@ -61,22 +61,22 @@
             <input 
               type="number" 
               class="form-control conv-form-input" 
-              ng-model="haveAmount" 
-              ng-change="haveAmountChange()"
+              ng-model="currencyController.haveAmount" 
+              ng-change="currencyController.haveAmountChange()"
             />
             <input 
               type="number" 
               class="form-control conv-form-input" 
-              ng-model="wantAmount" 
+              ng-model="currencyController.wantAmount" 
               disabled
             />
           </div>
           <div class="comission-wrapper">
             <select 
               class="form-control btn btn-link select-comission"
-              ng-model="selectedCommission"
-              ng-options="option.name for option in commissionOptions"
-              ng-change="changeCommission(selectedCommission.value)"
+              ng-model="currencyController.selectedCommission"
+              ng-options="option.name for option in currencyController.commissionOptions"
+              ng-change="currencyController.changeCommission(currencyController.selectedCommission.value)"
             >
             </select>
           </div>
