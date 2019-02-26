@@ -5,28 +5,53 @@
     .module('currencyApp', ['ui.bootstrap'])
     .constant('CURRENCY_API_URL', 'https://free.currencyconverterapi.com/api/v6/currencies')
     .constant('CURRENCY_CONVERT_API_URL', 'https://free.currencyconverterapi.com/api/v6/convert')
-    .constant('CURRENCY_API_KEY', '8dd10bee3025f77fa7da');
+    .constant('CURRENCY_API_KEY', '8dd10bee3025f77fa7da')
+    .constant('FEE', '[0, 1, 1.5, 2.5, 4]')
+    .constant('CURRENCY_FROM', 'USD')
+    .constant('CURRENCY_TO', 'UAH')
+    .constant('LABEL_FROM', 'Currency I Have:')
+    .constant('LABEL_TO', 'Currency I Want:')
+    .constant('LABEL_TO_NEED', 'Currency I Need:');
 }());
 /*  eslint-disable no-console*/
 /* globals currencyApp */
 ((function() {
-  function currencyService($http, CURRENCY_API_URL, CURRENCY_CONVERT_API_URL, CURRENCY_API_KEY) {
+  function currencyService($http, CURRENCY_API_URL, CURRENCY_CONVERT_API_URL, CURRENCY_API_KEY, FEE) {
     function getAllCurrencies() {
       const URL = `${CURRENCY_API_URL}?apiKey=${CURRENCY_API_KEY}`;
 
-      return $http.get(URL);
+      return $http.get(URL).then(res => res.data.results);
     }
 
     function getCurrenciesExchange(firstCurrency, secondCurrency) {
       const mainURL = `${CURRENCY_CONVERT_API_URL}?apiKey=${CURRENCY_API_KEY}`;
       const URL = `${mainURL}&q=${firstCurrency}_${secondCurrency}&compact=y`;
 
-      return $http.get(URL);
+      return $http.get(URL).then(res => {
+        const [currenciesPair] = Object.keys(res.data);
+
+        return res.data[currenciesPair].val;
+      });
+    }
+
+    function getFee() {
+      const feeArr = [];
+      JSON.parse(FEE).forEach(value => {
+        feeArr.push(
+          {
+            name: `Commission - ${value}%`,
+            value
+          }
+        );
+      });
+
+      return feeArr;
     }
 
     return {
       getAllCurrencies,
-      getCurrenciesExchange
+      getCurrenciesExchange,
+      getFee
     };
   }
 
@@ -35,123 +60,105 @@
 /* eslint-disable no-console */
 /* globals currencyApp angular */
 ((function() {
-  function currencyController($scope, currencyService) {
+  function currencyController($scope, CURRENCY_FROM, CURRENCY_TO, LABEL_FROM, LABEL_TO, LABEL_TO_NEED, currencyService) {
     const vm = this;
 
     function renderExchangeRate() {
-      return `Exchange rate: 1${vm.haveCurrency} = ${vm.currentCourse.toFixed(2)}${vm.wantCurrency}`;
+      return `Exchange rate: 1${vm.fromCurrency} = ${vm.currentCourse.toFixed(2)}${vm.toCurrency}`;
     }
 
     function fetchCurrenciesExchange() {
-      if (vm.haveCurrency && vm.wantCurrency) {
-        currencyService.getCurrenciesExchange(vm.haveCurrency, vm.wantCurrency)
-          .then(res => {
-            const [currenciesPair] = Object.keys(res.data);
-            vm.currentCourse = res.data[currenciesPair].val;
-            vm.exchangeRates = renderExchangeRate();
-            vm.haveAmountChange();
+      if (vm.fromCurrency && vm.toCurrency) {
+        currencyService.getCurrenciesExchange(vm.fromCurrency, vm.toCurrency)
+          .then(rate => {
+            vm.currentCourse = rate;
+            vm.exchangeRateHeader = renderExchangeRate();
+            vm.fromAmountChange();
           });
       }
     }
 
-    function fetchData() {
-      currencyService.getAllCurrencies().then(res => {
-        vm.allCurrencies = res.data.results;
+    function fetchCurrenciesList() {
+      currencyService.getAllCurrencies().then(list => {
+        vm.allCurrencies = list;
         fetchCurrenciesExchange();
+        vm.commissionOptions = currencyService.getFee();
+        vm.selectedCommission = vm.commissionOptions[0];
       });
     }
 
     vm.currencyService = currencyService;
+    vm.fromCurrency = CURRENCY_FROM;
+    vm.toCurrency = CURRENCY_TO;
+    vm.selectLeft = LABEL_FROM;
+    vm.selectRight = LABEL_TO;
+    vm.isSell = true;
 
-    vm.commissionOptions = [
-      {
-        name: 'Commission - 0%',
-        value: 0
-      },
-      {
-        name: 'Commission - 1%',
-        value: 1
-      },
-      {
-        name: 'Commission - 1.5%',
-        value: 1.5
-      },
-      {
-        name: 'Commission - 2.5%',
-        value: 2.5
-      },
-      {
-        name: 'Commission - 4%',
-        value: 4
-      }
-    ];
-
-    vm.selectedCommission = vm.commissionOptions[0];
-    vm.haveCurrency = 'USD';
-    vm.wantCurrency = 'UAH';
-    vm.selectLeft = 'Currency I Have:';
-    vm.selectRight = 'Currency I Want:';
-
-    $scope.setLabel = val => {
+    $scope.handleTab = val => {
       if (val === 1) {
-        vm.selectLeft = 'Currency I Have:';
-        vm.selectRight = 'Currency I Want:';
+        vm.selectLeft = LABEL_FROM;
+        vm.selectRight = LABEL_TO;
+        vm.isSell = true;
       } else {
-        vm.selectLeft = 'Currency I Want:';
-        vm.selectRight = 'Currency I Need:';
+        vm.selectLeft = LABEL_TO;
+        vm.selectRight = LABEL_TO_NEED;
+        vm.isSell = false;
       }
+      vm.fromAmountChange();
     };
 
     vm.swapCurrencies = () => {
-      const { haveCurrency, wantCurrency } = vm;
+      const { fromCurrency, toCurrency, commissionOptions } = vm;
 
-      vm.haveAmount = 0;
-      vm.wantAmount = 0;
-      vm.haveCurrency = wantCurrency;
-      vm.wantCurrency = haveCurrency;
-      vm.selectedCommission = vm.commissionOptions[0];
+      vm.fromAmount = 0;
+      vm.toAmount = 0;
+      vm.fromCurrency = toCurrency;
+      vm.toCurrency = fromCurrency;
+      vm.selectedCommission = commissionOptions[0];
 
       fetchCurrenciesExchange();
     };
 
-    vm.changeHaveCyrrency = function() {
-      if (vm.haveCurrency && vm.wantCurrency) {
+    vm.changeFromCyrrency = function() {
+      if (vm.fromCurrency && vm.toCurrency) {
         fetchCurrenciesExchange();
       }
     };
 
-    vm.changeWantCyrrency = function() {
-      if (vm.haveCurrency && vm.wantCurrency) {
+    vm.changeToCyrrency = function() {
+      if (vm.fromCurrency && vm.toCurrency) {
         fetchCurrenciesExchange();
       }
     };
 
-    vm.haveAmountChange = () => {
+    vm.fromAmountChange = () => {
       const {
-        haveAmount,
+        fromAmount,
         currentCourse,
         selectedCommission,
-        haveCurrency,
-        wantCurrency
+        fromCurrency,
+        toCurrency
       } = vm;
 
       if (
-        haveAmount
-        && haveCurrency
-        && wantCurrency
+        fromAmount
+        && fromCurrency
+        && toCurrency
         && currentCourse
       ) {
-        vm.wantAmount = Number((haveAmount * currentCourse * (1 - selectedCommission.value / 100)).toFixed(2));
+        vm.toAmount = vm.isSell
+          ? Number((fromAmount * currentCourse * (1 - selectedCommission.value / 100)).toFixed(2))
+          : Number((fromAmount * currentCourse * (1 + selectedCommission.value / 100)).toFixed(2));
       } else {
-        vm.wantAmount = 0;
+        vm.toAmount = 0;
       }
     };
 
     vm.changeCommission = val => {
-      vm.haveAmountChange();
+      vm.fromAmountChange();
     };
 
-    window.onload = fetchData;
+    window.onload = fetchCurrenciesList;
   }
 
   angular
@@ -174,6 +181,6 @@ angular
 
     vm.handleTabClick = val => {
       vm.setTab(val);
-      $scope.setLabel(val);
+      $scope.handleTab(val);
     };
   }]);

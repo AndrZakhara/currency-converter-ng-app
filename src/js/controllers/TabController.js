@@ -14,6 +14,6 @@ angular
 
     vm.handleTabClick = val => {
       vm.setTab(val);
-      $scope.setLabel(val);
+      $scope.handleTab(val);
     };
   }]);
