@@ -28,7 +28,7 @@
     </div>
     <div class = "row">
       <div class="exchange-rates-wrapper">
-        <h4 class="text-center">{{currencyController.exchangeRates}}</h4>
+        <h4 class="text-center">{{currencyController.exchangeRateHeader}}</h4>
       </div>
       <div class="form-wrapper">
         <form class="form-group" role="form">
@@ -38,8 +38,8 @@
               <select 
                 class="form-control form-select" 
                 id="select-left" 
-                ng-model="currencyController.haveCurrency" 
-                ng-change="currencyController.changeHaveCyrrency()"
+                ng-model="currencyController.fromCurrency" 
+                ng-change="currencyController.changeFromCyrrency()"
               >
                 <option ng-repeat="currency in currencyController.allCurrencies" value="{{currency.id}}">{{currency.id}}</option>
               </select>
@@ -50,8 +50,8 @@
               <select 
                 class="form-control form-select" 
                 id="select-right" 
-                ng-model="currencyController.wantCurrency" 
-                ng-change="currencyController.changeWantCyrrency()"
+                ng-model="currencyController.toCurrency" 
+                ng-change="currencyController.changeToCyrrency()"
               >
                 <option ng-repeat="currency in currencyController.allCurrencies" value="{{currency.id}}">{{currency.id}}</option>
               </select>
@@ -61,13 +61,15 @@
             <input 
               type="number" 
               class="form-control conv-form-input" 
-              ng-model="currencyController.haveAmount" 
-              ng-change="currencyController.haveAmountChange()"
+              ng-model="currencyController.fromAmount" 
+              ng-change="currencyController.fromAmountChange()"
+              placeholder="0.00"
             />
             <input 
               type="number" 
               class="form-control conv-form-input" 
-              ng-model="currencyController.wantAmount" 
+              ng-model="currencyController.toAmount"
+              placeholder="0.00"
               disabled
             />
           </div>
