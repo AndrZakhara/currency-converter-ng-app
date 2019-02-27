@@ -4,7 +4,7 @@
   angular
     .module('currencyApp')
     .component('currencyApp', {
-      templateUrl: 'converterTemplate.html',
+      templateUrl: './templates/converterTemplate.html',
       replace: true
     });
 })());

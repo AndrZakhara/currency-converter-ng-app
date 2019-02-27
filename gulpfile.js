@@ -6,7 +6,7 @@ const concat = require('gulp-concat');
 const paths = {
   dirs: {
     build: './build',
-    components: './build/components',
+    templates: './build/templates',
     src: './src'
   },
   html: './src/*.html',
@@ -26,7 +26,7 @@ gulp.task('htmlMain', function() {
 
 gulp.task('htmlTemplates', function() {
   return gulp.src(paths.htmlTemlates)
-    .pipe(gulp.dest(paths.dirs.components))
+    .pipe(gulp.dest(paths.dirs.templates))
     .pipe(browserSync.reload({
       stream: true
     }));
