@@ -39,10 +39,11 @@ gulp.task('sass', function() {
 gulp.task('js', function() {
   return gulp.src(
     [
-      paths.jsIndex,
-      paths.jsService,
-      paths.jsCurrencyController,
-      paths.jsTabsController
+      paths.allJs
+      // paths.jsIndex,
+      // paths.jsService,
+      // paths.jsCurrencyController,
+      // paths.jsTabsController
     ])
     .pipe(concat('main.js'))
     .pipe(gulp.dest(paths.dirs.build))
