@@ -1,10 +1,10 @@
 /* eslint-disable no-console */
 /* globals currencyApp angular */
-(function() {
+((function() {
   angular
     .module('currencyApp')
     .component('currencyApp', {
-      templateUrl: 'converterTemplate.html',
+      templateUrl: './templates/converterTemplate.html',
       replace: true
     });
-});
+})());
