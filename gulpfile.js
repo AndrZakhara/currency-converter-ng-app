@@ -11,12 +11,7 @@ const paths = {
   html: './src/*.html',
   sass: './src/scss/style.scss',
   allSass: './src/scss/**/*.scss',
-  allJs: './src/js/**/*.js',
-  jsIndex: './src/js/index.js',
-  jsService: './src/js/services.js',
-  jsCurrencyController: './src/js/controllers/CurrencyController.js',
-  jsTabsController: './src/js/controllers/TabController.js',
-  jsMain: './dist/main.js'
+  allJs: './src/js/**/*.js'
 };
 
 gulp.task('html', function() {
@@ -39,10 +34,7 @@ gulp.task('sass', function() {
 gulp.task('js', function() {
   return gulp.src(
     [
-      paths.jsIndex,
-      paths.jsService,
-      paths.jsCurrencyController,
-      paths.jsTabsController
+      paths.allJs
     ])
     .pipe(concat('main.js'))
     .pipe(gulp.dest(paths.dirs.build))
@@ -69,6 +61,7 @@ gulp.task('serve', function(done) {
   done();
 });
 
-gulp.task('default', gulp.parallel('serve', 'watch'));
-
 gulp.task('build', gulp.parallel('html', 'sass', 'js'));
+
+gulp.task('default', gulp.series('build', 'serve', 'watch'));
+

@@ -1,63 +1,4 @@
 /* eslint-disable no-console */
-/* globals angular */
-(function() {
-  window.currencyApp = angular
-    .module('currencyApp', ['ui.bootstrap'])
-    .constant('CURRENCY_API_URL', 'https://free.currencyconverterapi.com/api/v6/currencies')
-    .constant('CURRENCY_CONVERT_API_URL', 'https://free.currencyconverterapi.com/api/v6/convert')
-    .constant('CURRENCY_API_KEY', '8dd10bee3025f77fa7da')
-    .constant('FEE', '[0, 1, 1.5, 2.5, 4]')
-    .constant('CURRENCY_FROM', 'USD')
-    .constant('CURRENCY_TO', 'UAH')
-    .constant('LABEL_FROM', 'Currency I Have:')
-    .constant('LABEL_TO', 'Currency I Want:')
-    .constant('LABEL_TO_NEED', 'Currency I Need:');
-}());
-/*  eslint-disable no-console*/
-/* globals currencyApp */
-((function() {
-  function currencyService($http, CURRENCY_API_URL, CURRENCY_CONVERT_API_URL, CURRENCY_API_KEY, FEE) {
-    function getAllCurrencies() {
-      const URL = `${CURRENCY_API_URL}?apiKey=${CURRENCY_API_KEY}`;
-
-      return $http.get(URL).then(res => res.data.results);
-    }
-
-    function getCurrenciesExchange(firstCurrency, secondCurrency) {
-      const mainURL = `${CURRENCY_CONVERT_API_URL}?apiKey=${CURRENCY_API_KEY}`;
-      const URL = `${mainURL}&q=${firstCurrency}_${secondCurrency}&compact=y`;
-
-      return $http.get(URL).then(res => {
-        const [currenciesPair] = Object.keys(res.data);
-
-        return res.data[currenciesPair].val;
-      });
-    }
-
-    function getFee() {
-      const feeArr = [];
-      JSON.parse(FEE).forEach(value => {
-        feeArr.push(
-          {
-            name: `Commission - ${value}%`,
-            value
-          }
-        );
-      });
-
-      return feeArr;
-    }
-
-    return {
-      getAllCurrencies,
-      getCurrenciesExchange,
-      getFee
-    };
-  }
-
-  currencyApp.factory('currencyService', currencyService);
-})());
-/* eslint-disable no-console */
 /* globals currencyApp angular */
 ((function() {
   function currencyController($scope, CURRENCY_FROM, CURRENCY_TO, LABEL_FROM, LABEL_TO, LABEL_TO_NEED, currencyService) {
@@ -163,24 +104,9 @@
 
   angular
     .module('currencyApp')
-    .controller('CurrencyController', currencyController);
+    .controller('CurrencyController', currencyController)
+    .component('currencyApp', {
+      templateUrl: 'converterTemplate.html',
+      replace: true
+    });
 })());
-/* eslint-disable no-console */
-/* globals currencyApp angular */
-angular
-  .module('currencyApp')
-  .controller('TabController', ['$scope', function($scope) {
-    const vm = this;
-    vm.tab = 1;
-
-    vm.isSet = tabNum => vm.tab === tabNum;
-
-    vm.setTab = newTab => {
-      vm.tab = newTab;
-    };
-
-    vm.handleTabClick = val => {
-      vm.setTab(val);
-      $scope.handleTab(val);
-    };
-  }]);

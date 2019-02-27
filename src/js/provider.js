@@ -40,5 +40,5 @@
     };
   }
 
-  currencyApp.factory('currencyService', currencyService);
+  currencyApp.provider('currencyService', currencyService);
 })());
