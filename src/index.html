@@ -11,80 +11,34 @@
   <script src="main.js"></script>
   <title>Document</title>
 </head>
-<body ng-controller="CurrencyController as currencyController" class="container-fluid">
-  <div class="page-header">
-    <h1 class="text-center header">Currency converter</h1>
-  </div>
-  <div class="main-wrapper container">
-    <div class="row" ng-controller="TabController as tabController">
-      <ul class="nav nav-tabs">
-        <li class="col-md-3 col-sm-4 col-xs-6 converter-tub text-center active" ng-class="{ active: tabController.isSet(1) }">
-          <a href="javascript:void(0)" ng-click="tabController.handleTabClick(1)">Sell currency</a>
-        </li>
-        <li class="col-md-3 col-sm-4 col-xs-6 converter-tub text-center" ng-class="{ active: tabController.isSet(2) }">
-          <a href="javascript:void(0)" ng-click="tabController.handleTabClick(2)">Buy currency</a>
-        </li>
-      </ul>
-    </div>
-    <div class = "row">
-      <div class="exchange-rates-wrapper">
-        <h4 class="text-center">{{currencyController.exchangeRateHeader}}</h4>
-      </div>
-      <div class="form-wrapper">
-        <form class="form-group" role="form">
-          <div class="converter-form">
-            <div class="input-wrapper">
-              <label for="select-left">{{currencyController.selectLeft}}</label>
-              <select 
-                class="form-control form-select" 
-                id="select-left" 
-                ng-model="currencyController.fromCurrency" 
-                ng-change="currencyController.changeFromCyrrency()"
-              >
-                <option ng-repeat="currency in currencyController.allCurrencies" value="{{currency.id}}">{{currency.id}}</option>
-              </select>
-            </div>          
-            <span class="btn btn-icon glyphicon glyphicon-sort" ng-click="currencyController.swapCurrencies()"></span>
-            <div class="input-wrapper">
-              <label for="select-right">{{currencyController.selectRight}}</label>
-              <select 
-                class="form-control form-select" 
-                id="select-right" 
-                ng-model="currencyController.toCurrency" 
-                ng-change="currencyController.changeToCyrrency()"
-              >
-                <option ng-repeat="currency in currencyController.allCurrencies" value="{{currency.id}}">{{currency.id}}</option>
-              </select>
+<body class="container-fluid">
+  <currency-app></currency-app>
+  <div class="container">
+      <h2>Modal Example</h2>
+      <!-- Trigger the modal with a button -->
+      <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
+    
+      <!-- Modal -->
+      <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+        
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Modal Header</h4>
             </div>
-          </div>          
-          <div class="form-inline converter-form" role="form">
-            <input 
-              type="number" 
-              class="form-control conv-form-input" 
-              ng-model="currencyController.fromAmount" 
-              ng-change="currencyController.fromAmountChange()"
-              placeholder="0.00"
-            />
-            <input 
-              type="number" 
-              class="form-control conv-form-input" 
-              ng-model="currencyController.toAmount"
-              placeholder="0.00"
-              disabled
-            />
+            <div class="modal-body">
+              <p>Some text in the modal.</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
           </div>
-          <div class="comission-wrapper">
-            <select 
-              class="form-control btn btn-link select-comission"
-              ng-model="currencyController.selectedCommission"
-              ng-options="option.name for option in currencyController.commissionOptions"
-              ng-change="currencyController.changeCommission(currencyController.selectedCommission.value)"
-            >
-            </select>
-          </div>
-        </form>
+          
+        </div>
       </div>
+      
     </div>
-  </div>
 </body>
 </html>
