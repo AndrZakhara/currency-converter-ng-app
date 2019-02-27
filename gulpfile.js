@@ -6,21 +6,33 @@ const concat = require('gulp-concat');
 const paths = {
   dirs: {
     build: './build',
+    templates: './build/templates',
     src: './src'
   },
   html: './src/*.html',
+  htmlTemlates: './src/templates/*.html',
   sass: './src/scss/style.scss',
   allSass: './src/scss/**/*.scss',
   allJs: './src/js/**/*.js'
 };
 
-gulp.task('html', function() {
+gulp.task('htmlMain', function() {
   return gulp.src(paths.html)
     .pipe(gulp.dest(paths.dirs.build))
     .pipe(browserSync.reload({
       stream: true
     }));
 });
+
+gulp.task('htmlTemplates', function() {
+  return gulp.src(paths.htmlTemlates)
+    .pipe(gulp.dest(paths.dirs.templates))
+    .pipe(browserSync.reload({
+      stream: true
+    }));
+});
+
+gulp.task('html', gulp.parallel('htmlMain', 'htmlTemplates'));
 
 gulp.task('sass', function() {
   return gulp.src(paths.sass)
@@ -64,4 +76,3 @@ gulp.task('serve', function(done) {
 gulp.task('build', gulp.parallel('html', 'sass', 'js'));
 
 gulp.task('default', gulp.series('build', 'serve', 'watch'));
-
