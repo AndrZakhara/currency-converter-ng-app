@@ -104,9 +104,5 @@
 
   angular
     .module('currencyApp')
-    .controller('CurrencyController', currencyController)
-    .component('currencyApp', {
-      templateUrl: 'converterTemplate.html',
-      replace: true
-    });
+    .controller('CurrencyController', currencyController);
 })());
