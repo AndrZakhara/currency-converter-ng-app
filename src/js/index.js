@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-/* globals angular */
+/* globals angular currencyApp*/
 (function() {
   window.currencyApp = angular
     .module('currencyApp', ['ui.bootstrap'])
@@ -11,5 +11,20 @@
     .constant('CURRENCY_TO', 'UAH')
     .constant('LABEL_FROM', 'Currency I Have:')
     .constant('LABEL_TO', 'Currency I Want:')
-    .constant('LABEL_TO_NEED', 'Currency I Need:');
+    .constant('LABEL_TO_NEED', 'Currency I Need:')
+    .run(['$window', '$rootScope', function($window, $rootScope) {
+      $rootScope.online = navigator.onLine;
+
+      $window.addEventListener('offline', function() {
+        $rootScope.$apply(() => {
+          $rootScope.online = false;
+        });
+      });
+
+      $window.addEventListener('online', function() {
+        $rootScope.$apply(() => {
+          $rootScope.online = true;
+        });
+      });
+    }]);
 }());
