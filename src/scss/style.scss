@@ -1,5 +1,7 @@
 body {
   position: relative;
+  margin: 0;
+  padding: 0;
   .modal-wrapper {
     background-color: rgba(184, 184, 184, 0.5);
     position: absolute;
@@ -10,7 +12,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-      // align-self: center;
+    align-self: center;
     .worning-wrapper {
       width: 350px;
       height: 150px;
@@ -27,6 +29,7 @@ body {
     }
   }
 }
+
 .main-wrapper {
   max-width: 860px;
 }
@@ -37,11 +40,11 @@ body {
 
 .btn-icon {
   transform: rotate(90deg);
-  color: darkolivegreen;
+  color: rgb(114, 117, 128);
 }
 
 .btn-icon:hover {
-  color: darkgreen;
+  color: rgb(56, 57, 82);
 }
 
 .exchange-rates-wrapper{
@@ -91,3 +94,6 @@ body {
   box-shadow: none;
 }
 
+.nav-link {
+  cursor: pointer;
+}

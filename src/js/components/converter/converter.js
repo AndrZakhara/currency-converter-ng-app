@@ -3,8 +3,9 @@
 ((function() {
   angular
     .module('currencyApp')
-    .component('currencyApp', {
+    .component('converter', {
       templateUrl: './templates/converterTemplate.html',
-      replace: true
+      replace: true,
+      controller: 'CurrencyController'
     });
 })());

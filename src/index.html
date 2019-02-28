@@ -10,10 +10,33 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.14/angular-ui-router.min.js"></script>
   <title>Document</title>
 </head>
-<body class="container-fluid" ng-app="currencyApp">
-  <currency-app></currency-app>
-  <no-connect></no-connect>
-
+<body ng-app="currencyApp">
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#">Finance Today</a>
+      </div>
+      <ul class="nav navbar-nav">
+        <li>
+          <a class="nav-link" ui-sref="main" ui-sref-active="active">Main</a>
+        </li>
+        <li>
+          <a class="nav-link" ui-sref="converter" ui-sref-active="active">Converter</a>          
+        </li>
+        <li>
+            <a class="nav-link" ui-sref="contacts" ui-sref-active="active">Contacts</a> 
+        </li>
+        <li>
+            <a class="nav-link" ui-sref="about" ui-sref-active="active">About</a> 
+        </li>
+      </ul>
+    </div>
+  </nav>
+  
+  <ui-view>
+    <h3>Main page</h3>
+    <no-connect></no-connect>
+  </ui-view>
  
   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.0/ui-bootstrap-tpls.min.js"></script>
   <script src="main.js"></script>
