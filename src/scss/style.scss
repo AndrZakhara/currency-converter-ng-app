@@ -1,3 +1,32 @@
+body {
+  position: relative;
+  .modal-wrapper {
+    background-color: rgba(184, 184, 184, 0.5);
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+      // align-self: center;
+    .worning-wrapper {
+      width: 350px;
+      height: 150px;
+      background-color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 10px;
+      h1 {
+        width: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    }
+  }
+}
 .main-wrapper {
   max-width: 860px;
 }
@@ -61,3 +90,4 @@
   outline: none !important;
   box-shadow: none;
 }
+

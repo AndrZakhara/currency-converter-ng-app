@@ -57,6 +57,7 @@ gulp.task('js', function() {
 
 gulp.task('watch', function() {
   gulp.watch(paths.html).on('change', gulp.series('html'));
+  gulp.watch(paths.htmlTemlates).on('change', gulp.series('htmlTemplates'));
   gulp.watch(paths.allSass).on('change', gulp.series('sass'));
   gulp.watch(paths.allJs).on('change', gulp.series('js'));
 });
